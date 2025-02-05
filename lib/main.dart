@@ -18,14 +18,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => QuestionModel()..loadQuestions(), // Cargar preguntas al iniciar
+      create: (context) => QuestionModel()..loadQuestions(),
       child: MaterialApp(
         title: 'Preguntas y Respuestas',
         theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.black87,
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.black,
-            elevation: 0,
+            elevation: 10,
+            shadowColor: Colors.black45,
           ),
           textTheme: const TextTheme(
             bodyMedium: TextStyle(color: Colors.white),
@@ -58,18 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
     'Preposiciones',
     'Adverbios'
   ];
-  final List<String> _recentQuestions = []; // Lista para evitar repeticiones
-
-  @override
-  void initState() {
-    super.initState();
-    // No necesitamos cargar las preguntas aquí, ya que se cargan en el QuestionModel
-  }
+  final List<String> _recentQuestions = [];
 
   void _selectRandomQuestion(QuestionModel model) {
     final filteredQuestions = _selectedCategory == 'Todos'
         ? model.questions
-        : model.questions.where((question) => question['category'] == _selectedCategory).toList();
+        : model.questions
+            .where((question) => question['category'] == _selectedCategory)
+            .toList();
 
     if (filteredQuestions.isEmpty) {
       setState(() {
@@ -90,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final random = Random();
     final randomQuestion =
-    availableQuestions[random.nextInt(availableQuestions.length)]['question'];
+        availableQuestions[random.nextInt(availableQuestions.length)]
+            ['question'];
 
     setState(() {
       _selectedQuestion = randomQuestion;
@@ -134,12 +132,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
             if (model.questions.isEmpty) {
               return const Center(
-                child: CircularProgressIndicator(), // Muestra un indicador de carga mientras se cargan las preguntas
+                child: CircularProgressIndicator(),
               );
             }
 
             return Column(
               children: <Widget>[
+                // Modo Estudio / Revisión
+                const SizedBox(height: 16.0),
+
+                // Categoría
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
                   dropdownColor: Colors.black,
@@ -147,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelText: 'Categoría',
                     labelStyle: const TextStyle(color: Colors.cyanAccent),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(12.0),
                       borderSide: const BorderSide(color: Colors.cyanAccent),
                     ),
                   ),
@@ -161,17 +163,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (String? newValue) {
                     setState(() {
                       _selectedCategory = newValue!;
-                      _selectRandomQuestion(model); // Seleccionar una nueva pregunta al cambiar la categoría
+                      _selectRandomQuestion(model);
                     });
                   },
                 ),
                 const SizedBox(height: 16.0),
-                Text(
-                  _selectedQuestion.isEmpty ? 'Selecciona una categoría' : _selectedQuestion,
-                  style: const TextStyle(color: Colors.white, fontSize: 18),
-                  textAlign: TextAlign.center,
+
+                // Flashcard - Pregunta
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: Card(
+                    key: ValueKey<String>(_selectedQuestion),
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        _selectedQuestion.isEmpty
+                            ? 'Selecciona una categoría'
+                            : _selectedQuestion,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16.0),
+
+                // Respuesta
                 TextField(
                   controller: _answerController,
                   focusNode: _answerFocusNode,
@@ -180,31 +204,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelText: 'Respuesta',
                     labelStyle: const TextStyle(color: Colors.greenAccent),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(12.0),
                       borderSide: const BorderSide(color: Colors.greenAccent),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(12.0),
                       borderSide: const BorderSide(color: Colors.greenAccent),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(12.0),
                       borderSide: const BorderSide(color: Colors.white),
                     ),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16.0),
                   ),
                   onSubmitted: (value) {
                     bool isCorrect =
-                    Provider.of<QuestionModel>(context, listen: false)
-                        .compareAnswer(_selectedQuestion, value);
+                        model.compareAnswer(_selectedQuestion, value);
                     if (isCorrect) {
                       _answerController.clear();
-                      _selectRandomQuestion(
-                          Provider.of<QuestionModel>(context, listen: false));
+                      _selectRandomQuestion(model);
                     }
-                    _answerFocusNode.requestFocus(); // Solicitar enfoque
+                    _answerFocusNode.requestFocus();
                   },
                 ),
                 const SizedBox(height: 16.0),
+
+                // Botón Comprobar
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.cyan,
@@ -215,20 +241,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         horizontal: 24, vertical: 12),
                   ),
                   onPressed: () {
-                    bool isCorrect =
-                    Provider.of<QuestionModel>(context, listen: false)
-                        .compareAnswer(
+                    bool isCorrect = model.compareAnswer(
                         _selectedQuestion, _answerController.text);
                     if (isCorrect) {
                       _answerController.clear();
                       _selectRandomQuestion(model);
                     }
-                    _answerFocusNode.requestFocus(); // Solicitar enfoque
+                    _answerFocusNode.requestFocus();
                   },
                   child: const Text('Comprobar',
                       style: TextStyle(color: Colors.black)),
                 ),
                 const SizedBox(height: 16.0),
+
+                // Resultado
                 Text(
                   model.result,
                   style: const TextStyle(color: Colors.white, fontSize: 18),
