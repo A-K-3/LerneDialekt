@@ -1,4 +1,3 @@
-// lib/create_page.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -110,12 +109,12 @@ class _CreatePageState extends State<CreatePage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
               onPressed: () {
-                if (_answerController.text.isNotEmpty) {
+                if (_answerController.text.trim().isNotEmpty) {
                   setState(() {
-                    _answers.add(_answerController.text);
+                    _answers.add(_answerController.text.trim());
                     _answerController.clear();
                   });
                 } else {
@@ -136,22 +135,30 @@ class _CreatePageState extends State<CreatePage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
               onPressed: () {
-                if (_questionController.text.isNotEmpty &&
-                    _answers.isNotEmpty) {
-                  Provider.of<QuestionModel>(context, listen: false)
-                      .addQuestion(_questionController.text, _answers,
-                          _selectedCategory);
-                  Navigator.pop(context);
-                } else {
+                final questionText = _questionController.text.trim();
+                if (questionText.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                        content: Text(
-                            '⚠️ La pregunta y las respuestas no pueden estar vacías')),
+                        content: Text('⚠️ La pregunta no puede estar vacía')),
                   );
+                  return;
                 }
+
+                print('Answers: $_answers');
+                if (_answers.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('⚠️ Debes añadir al menos una respuesta')),
+                  );
+                  return;
+                }
+
+                Provider.of<QuestionModel>(context, listen: false)
+                    .addQuestion(questionText, _answers, _selectedCategory);
+                Navigator.pop(context);
               },
               child: const Text('💾 Guardar Pregunta',
                   style: TextStyle(color: Colors.black)),
@@ -160,17 +167,17 @@ class _CreatePageState extends State<CreatePage> {
             Column(
               children: _answers
                   .map((answer) => Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.cyanAccent),
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                        child: ListTile(
-                          title: Text(answer,
-                              style: const TextStyle(color: Colors.white)),
-                        ),
-                      ))
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.cyanAccent),
+                  color: Colors.black.withOpacity(0.5),
+                ),
+                child: ListTile(
+                  title: Text(answer,
+                      style: const TextStyle(color: Colors.white)),
+                ),
+              ))
                   .toList(),
             ),
           ],
