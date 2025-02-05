@@ -1,36 +1,52 @@
-import 'package:flutter/material.dart';
+// lib/question_model.dart
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class QuestionModel extends ChangeNotifier {
-  List<Map<String, String>> _questions = [];
+  List<Map<String, dynamic>> _questions = [];
   String _result = '';
+  String _error = '';
   final String _apiUrl = 'http://localhost:3000/questions';
 
-  List<Map<String, String>> get questions => _questions;
+  List<Map<String, dynamic>> get questions => _questions;
+
   String get result => _result;
 
+  String get error => _error;
+
   QuestionModel() {
-    _loadQuestions();
+    loadQuestions(); // Cargar preguntas al crear el modelo
   }
 
-  /// Cargar preguntas desde el backend
-  Future<void> _loadQuestions() async {
+  Future<void> loadQuestions() async {
     try {
       final response = await http.get(Uri.parse(_apiUrl));
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        _questions = data.map((q) => Map<String, String>.from(q)).toList();
+        _questions = data.map((q) => Map<String, dynamic>.from(q)).toList();
+      } else {
+        _error = 'Error loading questions: ${response.statusCode}';
       }
     } catch (e) {
-      print('Error cargando preguntas: $e');
+      _error = 'Error loading questions: $e';
     }
     notifyListeners();
   }
 
-  /// Agregar una nueva pregunta y guardarla en el backend
-  Future<void> addQuestion(String question, String answer) async {
-    final newQuestion = {'question': question, 'answer': answer};
+  Future<void> addQuestion(
+      String question, List<String> answers, String category) async {
+    if (answers.isEmpty) {
+      print('Error: The answers list cannot be empty.');
+      return;
+    }
+
+    final newQuestion = {
+      'question': question,
+      'answers': answers,
+      'category': category
+    };
 
     try {
       final response = await http.post(
@@ -43,26 +59,29 @@ class QuestionModel extends ChangeNotifier {
         _questions.add(newQuestion);
       }
     } catch (e) {
-      print('Error agregando pregunta: $e');
+      print('Error adding question: $e');
     }
 
     notifyListeners();
   }
 
-  /// Comparar respuesta del usuario con la correcta
-  void compareAnswer(String question, String userAnswer) {
+  bool compareAnswer(String question, String userAnswer) {
     final matchingQuestion = _questions.firstWhere(
-          (q) => q['question'] == question,
-      orElse: () => {'answer': ''},
+      (q) => q['question'] == question,
+      orElse: () => {'answers': []},
     );
 
-    final correctAnswer = matchingQuestion['answer'] ?? '';
+    final correctAnswers = List<String>.from(matchingQuestion['answers'] ?? []);
 
-    if (userAnswer == correctAnswer) {
-      _result = '¡Correcto!';
+    if (correctAnswers.contains(userAnswer)) {
+      _result = 'Correcto!';
+      notifyListeners();
+      return true;
     } else {
-      _result = 'Incorrecto. Inténtalo de nuevo.';
+      _result =
+          'Incorrecto, las respuestas correctas son: ${correctAnswers.join(', ')}';
+      notifyListeners();
+      return false;
     }
-    notifyListeners();
   }
 }
