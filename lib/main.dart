@@ -1,3 +1,5 @@
+// lib/main.dart
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -46,8 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _answerController = TextEditingController();
   final FocusNode _answerFocusNode = FocusNode();
   String _selectedQuestion = '';
-  String _selectedCategory = 'Sustantivos';
+  String _selectedCategory = 'Todos';
   final List<String> _categories = [
+    'Todos',
     'Sustantivos',
     'Adjetivos',
     'Verbos',
@@ -64,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _selectRandomQuestion(QuestionModel model) {
-    final filteredQuestions = model.questions
-        .where((question) => question['category'] == _selectedCategory)
-        .toList();
+    final filteredQuestions = _selectedCategory == 'Todos'
+        ? model.questions
+        : model.questions.where((question) => question['category'] == _selectedCategory).toList();
 
     if (filteredQuestions.isEmpty) {
       setState(() {
@@ -87,8 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final random = Random();
     final randomQuestion =
-    availableQuestions[random.nextInt(availableQuestions.length)]
-    ['question'];
+    availableQuestions[random.nextInt(availableQuestions.length)]['question'];
 
     setState(() {
       _selectedQuestion = randomQuestion;
@@ -159,8 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (String? newValue) {
                     setState(() {
                       _selectedCategory = newValue!;
-                      _selectRandomQuestion(
-                          model); // Seleccionar una nueva pregunta al cambiar la categoría
+                      _selectRandomQuestion(model); // Seleccionar una nueva pregunta al cambiar la categoría
                     });
                   },
                 ),
