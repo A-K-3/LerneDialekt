@@ -15,7 +15,7 @@ class _CreatePageState extends State<CreatePage> {
   final TextEditingController _questionController = TextEditingController();
   final TextEditingController _answerController = TextEditingController();
   final List<String> _answers = [];
-  String _selectedCategory = 'General';
+  String _selectedCategory = 'Sustantivos';
   final List<String> _categories = [
     'Sustantivos',
     'Adjetivos',
