@@ -11,10 +11,7 @@ app.use(express.json());
 
 app.use("/questions", questionsRoutes);
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build/web/index.html"));
-});
 
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`🚀 Server running at ${PORT}`);
 });
