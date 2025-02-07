@@ -10,7 +10,7 @@ import 'create_page.dart';
 import 'question_model.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "../.env");
   runApp(const MyApp());
 }
 
