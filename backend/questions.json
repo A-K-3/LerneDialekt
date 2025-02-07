@@ -1,0 +1,359 @@
+[
+  {
+    "question": "der Hund",
+    "answers": [
+      "el perro"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "die Katze",
+    "answers": [
+      "el gato"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "das Haus",
+    "answers": [
+      "la casa"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "der Apfel",
+    "answers": [
+      "la manzana"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "die Banane",
+    "answers": [
+      "el plátano"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "das Auto",
+    "answers": [
+      "el coche"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "groß",
+    "answers": [
+      "grande"
+    ],
+    "category": "Adjetivos"
+  },
+  {
+    "question": "klein",
+    "answers": [
+      "pequeño"
+    ],
+    "category": "Adjetivos"
+  },
+  {
+    "question": "schnell",
+    "answers": [
+      "rápido"
+    ],
+    "category": "Adjetivos"
+  },
+  {
+    "question": "langsam",
+    "answers": [
+      "lento"
+    ],
+    "category": "Adjetivos"
+  },
+  {
+    "question": "gehen",
+    "answers": [
+      "ir",
+      "caminar"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "essen",
+    "answers": [
+      "comer"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "trinken",
+    "answers": [
+      "beber"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "schlafen",
+    "answers": [
+      "dormir"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "lesen",
+    "answers": [
+      "leer"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "ich gehe",
+    "answers": [
+      "yo voy",
+      "yo camino"
+    ],
+    "category": "Conjugaciones"
+  },
+  {
+    "question": "du isst",
+    "answers": [
+      "tú comes"
+    ],
+    "category": "Conjugaciones"
+  },
+  {
+    "question": "er trinkt",
+    "answers": [
+      "él bebe"
+    ],
+    "category": "Conjugaciones"
+  },
+  {
+    "question": "wir schlafen",
+    "answers": [
+      "nosotros dormimos"
+    ],
+    "category": "Conjugaciones"
+  },
+  {
+    "question": "ihr lest",
+    "answers": [
+      "vosotros leéis"
+    ],
+    "category": "Conjugaciones"
+  },
+  {
+    "question": "in",
+    "answers": [
+      "en",
+      "dentro de"
+    ],
+    "category": "Preposiciones"
+  },
+  {
+    "question": "auf",
+    "answers": [
+      "sobre",
+      "encima de"
+    ],
+    "category": "Preposiciones"
+  },
+  {
+    "question": "unter",
+    "answers": [
+      "debajo de"
+    ],
+    "category": "Preposiciones"
+  },
+  {
+    "question": "neben",
+    "answers": [
+      "al lado de"
+    ],
+    "category": "Preposiciones"
+  },
+  {
+    "question": "zwischen",
+    "answers": [
+      "entre"
+    ],
+    "category": "Preposiciones"
+  },
+  {
+    "question": "schnell",
+    "answers": [
+      "rápidamente"
+    ],
+    "category": "Adverbios"
+  },
+  {
+    "question": "langsam",
+    "answers": [
+      "lentamente"
+    ],
+    "category": "Adverbios"
+  },
+  {
+    "question": "oft",
+    "answers": [
+      "a menudo"
+    ],
+    "category": "Adverbios"
+  },
+  {
+    "question": "selten",
+    "answers": [
+      "rara vez"
+    ],
+    "category": "Adverbios"
+  },
+  {
+    "question": "immer",
+    "answers": [
+      "siempre"
+    ],
+    "category": "Adverbios"
+  },
+  {
+    "question": "adsdas",
+    "answers": [
+      "asdas"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "Bleiben",
+    "answers": [
+      "Quedar",
+      "Quedarse"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "der Praktikant",
+    "answers": [
+      "Becario"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "die Firma",
+    "answers": [
+      "La empresa"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "die schriftlich",
+    "answers": [
+      "El escrito"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "die Dauer",
+    "answers": [
+      "Duración"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "normalerweise",
+    "answers": [
+      "Normalmente"
+    ],
+    "category": "Adverbios"
+  },
+  {
+    "question": "das Geld",
+    "answers": [
+      "dinero"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "die Stunde",
+    "answers": [
+      "hora"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "zahlen",
+    "answers": [
+      "pagar"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "Bekommen",
+    "answers": [
+      "Recibir"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "der Kellner",
+    "answers": [
+      "camarero"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "der Krankenpflege",
+    "answers": [
+      "enfermero"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "der architekt",
+    "answers": [
+      "arquitecto"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "mit*kommen",
+    "answers": [
+      "acompañar"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "der Führerschein",
+    "answers": [
+      "Permiso de conducir",
+      "Carné de conducir",
+      "Carné"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "das Amt",
+    "answers": [
+      "Oficina"
+    ],
+    "category": "Sustantivos"
+  },
+  {
+    "question": "gültig",
+    "answers": [
+      "válido"
+    ],
+    "category": "Adjetivos"
+  },
+  {
+    "question": "mieten",
+    "answers": [
+      "alquilar"
+    ],
+    "category": "Verbos"
+  },
+  {
+    "question": "ausländisch",
+    "answers": [
+      "extranjero"
+    ],
+    "category": "Adjetivos"
+  }
+]

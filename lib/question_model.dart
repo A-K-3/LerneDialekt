@@ -3,12 +3,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class QuestionModel extends ChangeNotifier {
   List<Map<String, dynamic>> _questions = [];
   String _result = '';
   String _error = '';
-  final String _apiUrl = 'http://localhost:3000/questions';
+  final String _apiUrl = dotenv.env['API_URL']!;
 
   List<Map<String, dynamic>> get questions => _questions;
 

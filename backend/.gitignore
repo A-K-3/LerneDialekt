@@ -173,3 +173,18 @@ coverage/
 .python-version
 .gclient_previous_custom_vars
 .gclient_previous_sync_commits
+/backend/
+
+# npm
+node_modules
+package-lock.json
+npm-shrinkwrap.json
+*.log
+*.gz
+
+# Coveralls
+.nyc_output
+coverage
+
+# Benchmarking
+benchmarks/graphs
