@@ -1,7 +1,4 @@
-// lib/main.dart
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final filteredQuestions = _selectedCategory == 'Todos'
         ? model.questions
         : model.questions
-            .where((question) => question['category'] == _selectedCategory)
-            .toList();
+        .where((question) => question['category'] == _selectedCategory)
+        .toList();
 
     if (filteredQuestions.isEmpty) {
       setState(() {
@@ -89,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final random = Random();
     final randomQuestion =
-        availableQuestions[random.nextInt(availableQuestions.length)]
-            ['question'];
+    availableQuestions[random.nextInt(availableQuestions.length)]
+    ['question'];
 
     setState(() {
       _selectedQuestion = randomQuestion;
@@ -100,6 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
         _recentQuestions.removeAt(0);
       }
     });
+  }
+
+  int _getQuestionCountForCategory(QuestionModel model, String category) {
+    return model.questions
+        .where((question) => category == 'Todos' || question['category'] == category)
+        .length;
   }
 
   @override
@@ -156,10 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   items: _categories.map((String category) {
+                    // Obtener el número de preguntas por categoría
+                    int questionCount = _getQuestionCountForCategory(model, category);
                     return DropdownMenuItem<String>(
                       value: category,
-                      child: Text(category,
-                          style: const TextStyle(color: Colors.white)),
+                      child: Text(
+                        '$category ($questionCount)',
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
@@ -218,11 +225,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderSide: const BorderSide(color: Colors.white),
                     ),
                     contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16.0),
+                    const EdgeInsets.symmetric(horizontal: 16.0),
                   ),
                   onSubmitted: (value) {
                     bool isCorrect =
-                        model.compareAnswer(_selectedQuestion, value);
+                    model.compareAnswer(_selectedQuestion, value);
                     if (isCorrect) {
                       _answerController.clear();
                       _selectRandomQuestion(model);
