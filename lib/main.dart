@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => QuestionModel()..loadQuestions(),
       child: MaterialApp(
-        title: 'Preguntas y Respuestas',
+        title: 'Fragen und Antworten',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black87,
           appBarTheme: const AppBarTheme(
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pregunta y Respuesta Futurista'),
+        title: const Text('Fragen und Antworten'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   value: _selectedCategory,
                   dropdownColor: Colors.black,
                   decoration: InputDecoration(
-                    labelText: 'Categoría',
+                    labelText: 'Kategorie',
                     labelStyle: const TextStyle(color: Colors.cyanAccent),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
@@ -191,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
                         _selectedQuestion.isEmpty
-                            ? 'Selecciona una categoría'
+                            ? 'Wählen Sie eine Kategorie'
                             : _selectedQuestion,
                         style: const TextStyle(
                             color: Colors.white,
@@ -210,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   focusNode: _answerFocusNode,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    labelText: 'Respuesta',
+                    labelText: 'Antwort',
                     labelStyle: const TextStyle(color: Colors.greenAccent),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
@@ -258,7 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
                     _answerFocusNode.requestFocus();
                   },
-                  child: const Text('Comprobar',
+                  child: const Text('Überprüfen ',
                       style: TextStyle(color: Colors.black)),
                 ),
                 const SizedBox(height: 16.0),

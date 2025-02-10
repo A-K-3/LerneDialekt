@@ -28,7 +28,7 @@ class _CreatePageState extends State<CreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('🚀 Nueva Pregunta'),
+        title: const Text('🚀 Neue Frage'),
         backgroundColor: Colors.black,
       ),
       body: Padding(
@@ -39,7 +39,7 @@ class _CreatePageState extends State<CreatePage> {
               value: _selectedCategory,
               dropdownColor: Colors.black,
               decoration: InputDecoration(
-                labelText: 'Categoría',
+                labelText: 'Kategorie',
                 labelStyle: const TextStyle(color: Colors.cyanAccent),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -64,7 +64,7 @@ class _CreatePageState extends State<CreatePage> {
               controller: _questionController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                labelText: 'Pregunta',
+                labelText: 'Frage',
                 labelStyle: const TextStyle(color: Colors.cyanAccent),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -85,7 +85,7 @@ class _CreatePageState extends State<CreatePage> {
               controller: _answerController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                labelText: 'Respuesta',
+                labelText: 'Antwort',
                 labelStyle: const TextStyle(color: Colors.greenAccent),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -120,11 +120,11 @@ class _CreatePageState extends State<CreatePage> {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                        content: Text('⚠️ La respuesta no puede estar vacía')),
+                        content: Text('⚠️ Die Antwort kann nicht leer sein')),
                   );
                 }
               },
-              child: const Text('➕ Añadir Respuesta',
+              child: const Text('➕ Antwort hinzufügen',
                   style: TextStyle(color: Colors.black)),
             ),
             const SizedBox(height: 16.0),
@@ -142,7 +142,7 @@ class _CreatePageState extends State<CreatePage> {
 
                 if (questionText.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('⚠️ La pregunta no puede estar vacía')),
+                    const SnackBar(content: Text('⚠️ Die Frage kann nicht leer sein')),
                   );
                   return;
                 }
@@ -153,7 +153,7 @@ class _CreatePageState extends State<CreatePage> {
 
                 if (_answers.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('⚠️ Debes añadir al menos una respuesta')),
+                    const SnackBar(content: Text('⚠️ Sie müssen mindestens eine Antwort hinzufügen')),
                   );
                   return;
                 }
@@ -166,10 +166,10 @@ class _CreatePageState extends State<CreatePage> {
                 _answerController.clear();
                 _answers.clear();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('✅ Pregunta guardada correctamente')),
+                  const SnackBar(content: Text('✅ Frage erfolgreich gespeichert')),
                 );
               },
-              child: const Text('💾 Guardar Pregunta', style: TextStyle(color: Colors.black)),
+              child: const Text('💾 Frage speichern', style: TextStyle(color: Colors.black)),
             ),
             const SizedBox(height: 16.0),
             Column(
