@@ -109,7 +109,7 @@ class _CreatePageState extends State<CreatePage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 padding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
               onPressed: () {
                 if (_answerController.text.trim().isNotEmpty) {
@@ -134,50 +134,58 @@ class _CreatePageState extends State<CreatePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                padding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
               onPressed: () {
                 final questionText = _questionController.text.trim();
+                final answerText = _answerController.text.trim();
+
                 if (questionText.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('⚠️ La pregunta no puede estar vacía')),
+                    const SnackBar(content: Text('⚠️ La pregunta no puede estar vacía')),
                   );
                   return;
                 }
 
-                print('Answers: $_answers');
+                if (answerText.isNotEmpty) {
+                  _answers.add(answerText);
+                }
+
                 if (_answers.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('⚠️ Debes añadir al menos una respuesta')),
+                    const SnackBar(content: Text('⚠️ Debes añadir al menos una respuesta')),
                   );
                   return;
                 }
 
                 Provider.of<QuestionModel>(context, listen: false)
                     .addQuestion(questionText, _answers, _selectedCategory);
-                Navigator.pop(context);
+
+                // Clear the input fields and show a confirmation message
+                _questionController.clear();
+                _answerController.clear();
+                _answers.clear();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('✅ Pregunta guardada correctamente')),
+                );
               },
-              child: const Text('💾 Guardar Pregunta',
-                  style: TextStyle(color: Colors.black)),
+              child: const Text('💾 Guardar Pregunta', style: TextStyle(color: Colors.black)),
             ),
             const SizedBox(height: 16.0),
             Column(
               children: _answers
                   .map((answer) => Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.cyanAccent),
-                  color: Colors.black.withOpacity(0.5),
-                ),
-                child: ListTile(
-                  title: Text(answer,
-                      style: const TextStyle(color: Colors.white)),
-                ),
-              ))
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.cyanAccent),
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                        child: ListTile(
+                          title: Text(answer,
+                              style: const TextStyle(color: Colors.white)),
+                        ),
+                      ))
                   .toList(),
             ),
           ],
